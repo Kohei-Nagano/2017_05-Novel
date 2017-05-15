@@ -1,8 +1,40 @@
 <html>
     <head>
         <title>Novel_9</title>
+        <style type="text/css">
+            #bg{
+                border: 1px solid gray;
+                width: 800px;
+                height: 600px;
+                background-image: url(image/bg/BG001.jpg);
+            }
+            #selif{
+                border: 1px solid red;
+                width:  600px;
+                height: 200px;
+                position: relative;
+                top:    350px;
+                left:   100px;
+                background-color: rgba(255, 255, 255, 0.75)
+            }
+        </style>
     </head>
     <body>
-        <h1>Test</h1>
+        <form action="">
+            <button type="" id="sunset">夕焼け</button>
+        </form>
+        <div id="bg">
+            <div id="selif"></div>
+        </div>
+
+        <script src="js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#sunset").on("click", function(){
+                    $("#bg").css("background-image", "url(image/bg/BG002.jpg)");
+                    return (false);
+                });
+            });
+        </script>
     </body>
 </html>
