@@ -4,37 +4,91 @@
         
         <title>Novel_9</title>
         <style type="text/css">
-            #bg{
-                border: 1px solid gray;
+            #canvas{
                 width: 800px;
                 height: 600px;
-                background-image: url(image/bg/BG001.jpg);
+                border: 1px solid gray;
             }
-            #selif{
-                border: 1px solid red;
-                width:  600px;
-                height: 200px;
+            #serif{
                 position: relative;
-                top:    350px;
-                left:   100px;
-                background-color: rgba(255, 255, 255, 0.75)
+                top: 350px;
+                left: 100px;
+                width: 600px;
+                height: 200px;
+                border: 1px solid blue;	
+                background-color: rgba(255, 255, 255, 0.75);
+                padding: 10px;
+                user-select: none;
+                font-size: 18pt;
+            }
+            #chara{
+                position: relative;
+                top: 50px;
+                left: 550px;
+                width: 256px;
+                height: 256px;
+                border: 1px solid gray;
+
+                background: url(image/chara/pippi_01.png);
             }
         </style>
     </head>
     <body>
-        <form action="">
-            <button type="" id="sunset">夕焼け</button>
-        </form>
-        <div id="bg">
-            <div id="selif"></div>
+        <div id="canvas">
+            <div id= "serif"></div>
+            <div id= "chara"></div>
         </div>
 
         <script src="js/jquery.min.js"></script>
         <script>
+            var SCENARIO = [
+                  {com:"BG", val:"url(image/bg/BG001.jpg)"}
+                , {com:"S",  val:"吾輩は猫である"}
+                , {com:"S",  val:"名前はまだない"}
+                , {com:"BG", val:"url(image/bg/BG002.jpg)"}
+                , {com:"S",  val:"吾輩は猫である"}
+                , {com:"S",  val:"名前は猫である"}
+            ];
+
+            var Frag 
+
+            var Novel = {
+                  cursor: 0
+                , max:0
+                , init: function(){
+                    this.max = SCENARIO.length;
+                    this.play();
+                }
+                , play: function(){
+                    if(this.cursor >= this.max){
+                        this.cursor = 0;
+                        return(false);
+                    }
+
+                    switch(SCENARIO[this.cursor].com){
+                        // セリフ再生
+                        case "S":
+                                $("#serif").html(SCENARIO[this.cursor].val);
+                                this.cursor++;
+                                break;
+                        // 背景変更
+                        case "BG":
+                                $("#canvas").css("background-image", SCENARIO[this.cursor].val);
+                                this.cursor++;
+                                Novel.play();
+                                break;
+
+                        default:
+                                break;
+                    }
+                }
+            }
+
             $(document).ready(function(){
-                $("#sunset").on("click", function(){
-                    $("#bg").css("background-image", "url(image/bg/BG002.jpg)");
-                    return (false);
+                Novel.init();
+
+                $("#serif").on("click", function(){
+                    Novel.play();
                 });
             });
         </script>
