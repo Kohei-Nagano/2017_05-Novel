@@ -9,40 +9,56 @@ var screenCanvas, info;
 var run = true;
 var fps = 1000 / 30;
 var mouse = new Point();
+var ctx; // canvas2d コンテキスト格納用
 
 // - main ---------------------------------------------------------------------
 window.onload = function(){
 	
-	// 繧ｹ繧ｯ繝ｪ繝ｼ繝ｳ縺ｮ蛻晄悄蛹�
+	// canvasの取得
 	screenCanvas = document.getElementById('screen');
+	// canvasの横幅の設定
 	screenCanvas.width = 256;
+	// canvasの縦幅の設定
 	screenCanvas.height = 256;
 	
-	// 繧､繝吶Φ繝医・逋ｻ骭ｲ
+	// マウスの座標取得をイベントとして登録
 	screenCanvas.addEventListener('mousemove', mouseMove, true);
+	// キー入力の取得をイベントとして登録
 	window.addEventListener('keydown', keyDown, true);
 	
-	// 繧ｨ繝ｬ繝｡繝ｳ繝磯未騾｣
+	// infoの取得
 	info = document.getElementById('info');
 	
-	// 繝ｫ繝ｼ繝怜・逅・ｒ蜻ｼ縺ｳ蜃ｺ縺�
+	// canvas2dコンテキストを取得
+	ctx = screenCanvas.getContext('2d');
+
+	// メインループ
 	(function(){
-		// HTML繧呈峩譁ｰ
+		// HTMLの更新
 		info.innerHTML = mouse.x + ' : ' + mouse.y;
 		
-		// 繝輔Λ繧ｰ縺ｫ繧医ｊ蜀榊ｸｰ蜻ｼ縺ｳ蜃ｺ縺�
+		// screenをクリア 
+        ctx.clearRect(0, 0, screenCanvas.width, screenCanvas.height);
+
+		// 円を描画
+		drawCircle(ctx);
+
+		// 再帰呼び出しによりループを実現
+		// argument.callee => 自身の関数を参照できる
 		if(run){setTimeout(arguments.callee, fps);}
 	})();
 };
 
 // - event --------------------------------------------------------------------
 function mouseMove(event){
-	// 繝槭え繧ｹ繧ｫ繝ｼ繧ｽ繝ｫ蠎ｧ讓吶・譖ｴ譁ｰ
+	// canvas内のマウスの座標を代入
 	mouse.x = event.clientX - screenCanvas.offsetLeft;
 	mouse.y = event.clientY - screenCanvas.offsetTop;
 }
 
 function keyDown(event){
-	// Esc繧ｭ繝ｼ縺梧款縺輔ｌ縺ｦ縺・◆繧峨ヵ繝ｩ繧ｰ繧帝剄繧阪☆
+	// Escを押すことでループを停止
 	if(event.keyCode === 27){run = false;}
 }
+
+
