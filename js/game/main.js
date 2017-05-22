@@ -6,7 +6,7 @@
 
 // - global -------------------------------------------------------------------
 var screenCanvas, info;
-var enemy;
+var enemyManager;
 var run = true;
 var fps = 1000 / 30;
 var mouse = new Point();
@@ -32,19 +32,23 @@ window.onload = function(){
 	
 	// canvas2dコンテキストを取得
 	ctx = screenCanvas.getContext('2d');
-    //エネミーの生成
-	enemy = new Enemy(10, 5, 2, new Point(0, 20), this.ctx);
+
+	this.enemyManager = new EnemyManager(new Point(screenCanvas.width, screenCanvas.height),ctx);
 
 	// メインループ
     (function () {
-        enemy.Update();
+        
+        this.enemyManager.Update();
+        //enemy.Update();
 		// HTMLの更新
 		info.innerHTML = mouse.x + ' : ' + mouse.y;
 		
 		// screenをクリア 
         ctx.clearRect(0, 0, screenCanvas.width, screenCanvas.height);
+        this.enemyManager.Draw();
 
-        enemy.Draw();
+        this.enemyManager.IsCollide(mouse, 10);
+
 		// 円を描画
 		drawCircle(ctx);
 
@@ -63,7 +67,9 @@ function mouseMove(event){
 
 function keyDown(event){
 	// Escを押すことでループを停止
-	if(event.keyCode === 27){run = false;}
+    if (event.keyCode === 27) { run = false; }
+
+    alert(this.enemyArray.length);
 }
 
 

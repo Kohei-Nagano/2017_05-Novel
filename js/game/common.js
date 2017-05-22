@@ -13,12 +13,17 @@ Point.prototype.Distance = function (p) {
     var q = new Point();
     q.x = p.x - this.x;
     q.y = p.y - this.y;
-    return q;
+    return q.Length();
 };
 
 Point.prototype.Length = function () {
     return Math.sqrt(this.x * this.x + this.y * this.y);
 };
+
+var Sub = function(my,other)
+{
+    return new Point(my.x - other.x, my.y - other.y);
+}
 
 Point.prototype.Normalize = function () {
     var i = this.Length();
