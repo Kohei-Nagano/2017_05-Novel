@@ -8,6 +8,8 @@
                 width: 800px;
                 height: 600px;
                 border: 1px solid gray;
+
+                margin: auto;
             }
             #serif{
                 position: relative;
@@ -41,48 +43,101 @@
 
         <script src="js/jquery.min.js"></script>
         <script>
-            var SCENARIO = [
+            var MAIN_SCENARIO = [
                   {com:"BG", val:"url(image/bg/BG001.jpg)"}
                 , {com:"S",  val:"吾輩は猫である"}
                 , {com:"S",  val:"名前はまだない"}
                 , {com:"BG", val:"url(image/bg/BG002.jpg)"}
                 , {com:"S",  val:"吾輩は猫である"}
                 , {com:"S",  val:"名前は猫である"}
+                , {com:"E",  val:""}
+            ];
+            var TRUE_SCENARIO = [
+                  {com:"BG", val:"url(image/bg/BG001.jpg)"}
+                , {com:"S",  val:"昔々、あるところに"}
+                , {com:"S",  val:"おじいさんとおばあさんがおりましたとさ"}
+                , {com:"BG", val:"url(image/bg/BG002.jpg)"}
+                , {com:"S",  val:"めでたしめでたし"}
             ];
 
-            var Frag 
+            var SCENARIO = {
+                MAIN    : 0,
+                TRUE    : 1,
+                NORMAL  : 2,
+                BAD     : 3,
+            };
 
             var Novel = {
-                  cursor: 0
-                , max:0
+                cursor: 0
+                , max: 0
+                , scenario: SCENARIO.MAIN
                 , init: function(){
-                    this.max = SCENARIO.length;
+                    this.max = MAIN_SCENARIO.length;
                     this.play();
                 }
                 , play: function(){
                     if(this.cursor >= this.max){
-                        this.cursor = 0;
+                        //this.cursor = 0;
                         return(false);
                     }
 
-                    switch(SCENARIO[this.cursor].com){
-                        // セリフ再生
-                        case "S":
-                                $("#serif").html(SCENARIO[this.cursor].val);
-                                this.cursor++;
-                                break;
-                        // 背景変更
-                        case "BG":
-                                $("#canvas").css("background-image", SCENARIO[this.cursor].val);
-                                this.cursor++;
-                                Novel.play();
-                                break;
-
+                    switch(this.scenario){
+                        case SCENARIO.MAIN:
+                        this.mainScenario();
+                        break;
+                        case SCENARIO.TRUE:
+                        this.trueScenario();
+                        break;
                         default:
-                                break;
+                        alert("default");
+                        break;
                     }
                 }
-            }
+                , mainScenario: function(){
+                    switch(MAIN_SCENARIO[this.cursor].com){
+                        // セリフ再生
+                        case "S":
+                            $("#serif").html(MAIN_SCENARIO[this.cursor].val);
+                            this.cursor++;
+                            break;
+                        // 背景変更
+                        case "BG":
+                            $("#canvas").css("background-image", MAIN_SCENARIO[this.cursor].val);
+                            this.cursor++;
+                            Novel.play();
+                            break;
+                        //
+                        case "E":
+                            this.cursor = 0;
+                            this.scenario = SCENARIO.TRUE;
+                            this.max = TRUE_SCENARIO.length;
+                            Novel.play();
+                        default:
+                            break;
+                    }
+                }
+                , trueScenario: function(){
+                    switch(TRUE_SCENARIO[this.cursor].com){
+                    // セリフ再生
+                    case "S":
+                            $("#serif").html(TRUE_SCENARIO[this.cursor].val);
+                            this.cursor++;
+                            break;
+                    // 背景変更
+                    case "BG":
+                            $("#canvas").css("background-image", TRUE_SCENARIO[this.cursor].val);
+                            this.cursor++;
+                            Novel.play();
+                            break;
+                    // 終了
+                    case "E":
+                            break;
+                    default:
+                            break;
+                    }
+
+                }
+            };
 
             $(document).ready(function(){
                 Novel.init();
