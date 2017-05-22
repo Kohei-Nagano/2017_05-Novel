@@ -4,7 +4,7 @@
         
         <title>Novel_9</title>
         <style type="text/css">
-            #canvas{
+            #mainScreen{
                 width: 800px;
                 height: 600px;
                 border: 1px solid gray;
@@ -26,25 +26,45 @@
             #chara{
                 position: relative;
                 top: 50px;
-                left: 550px;
+                left: 400px;
                 width: 256px;
                 height: 256px;
-                border: 1px solid gray;
 
                 background: url(image/chara/pippi_01.png);
             }
+
+            #screen{
+            	border: 1px solid gray;
+            }
+
+            #gameScreen{
+                width: 800px;
+                height: 600px;
+                margin: auto;
+
+                display: none;
+            }
+
         </style>
         <script src="js/novel/novel.js"></script>
+        <script src="js/game/common.js"></script>
+        <script src="js/game/main.js"></script>
+        <script src="js/game/enemy.js"></script>
+        <script src="js/game/bullet.js"></script>
+
     </head>
     <body>
-        <div id="canvas">
+        <div id="mainScreen">
             <div id= "serif"></div>
             <div id= "chara"></div>
         </div>
 
+        <div id="gameScreen">
+            <canvas id="screen"></canvas>
+        </div>
+
         <script src="js/jquery.min.js"></script>
         <script>
-
             var novel = new Novel();
 
             $(document).ready(function(){

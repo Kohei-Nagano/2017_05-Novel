@@ -105,15 +105,17 @@ Novel.prototype.mainScenario = function(){
             break;
         // 背景変更
         case "BG":
-            $("#canvas").css("background-image", MAIN_SCENARIO[this.cursor].val);
+            $("#mainScreen").css("background-image", MAIN_SCENARIO[this.cursor].val);
             this.cursor++;
             this.play();
             break;
         //
         case "E":
             this.cursor = 0;
-            this.setTrueScenario();
-            this.play();
+            //this.setTrueScenario();
+            //this.play();
+            $("#mainScreen").hide();
+            $("#gameScreen").show();
         default:
             break;
     }
@@ -128,7 +130,7 @@ Novel.prototype.normalScenario = function(){
             break;
     // 背景変更
     case "BG":
-            $("#canvas").css("background-image", NORMAL_SCENARIO[this.cursor].val);
+            $("#mainScreen").css("background-image", NORMAL_SCENARIO[this.cursor].val);
             this.cursor++;
             this.play();
             break;
@@ -145,12 +147,12 @@ Novel.prototype.trueScenario = function(){
     switch(TRUE_SCENARIO[this.cursor].com){
     // セリフ再生
     case "S":
-            $("#serif").html(TRUE_SCENARIO[this.cursor].val);
+            $("#mainScreen").html(TRUE_SCENARIO[this.cursor].val);
             this.cursor++;
             break;
     // 背景変更
     case "BG":
-            $("#canvas").css("background-image", TRUE_SCENARIO[this.cursor].val);
+            $("#mainScreen").css("background-image", TRUE_SCENARIO[this.cursor].val);
             this.cursor++;
             this.play();
             break;
@@ -166,12 +168,12 @@ Novel.prototype.badScenario = function(){
     switch(BAD_SCENARIO[this.cursor].com){
     // セリフ再生
     case "S":
-            $("#serif").html(BAD_SCENARIO[this.cursor].val);
+            $("#mainScreen").html(BAD_SCENARIO[this.cursor].val);
             this.cursor++;
             break;
     // 背景変更
     case "BG":
-            $("#canvas").css("background-image", BAD_SCENARIO[this.cursor].val);
+            $("#mainScreen").css("background-image", BAD_SCENARIO[this.cursor].val);
             this.cursor++;
             this.play();
             break;
@@ -187,12 +189,12 @@ Novel.prototype.deadScenario = function(){
     switch(DEAD_SCENARIO[this.cursor].com){
     // セリフ再生
     case "S":
-            $("#serif").html(DEAD_SCENARIO[this.cursor].val);
+            $("#mainScreen").html(DEAD_SCENARIO[this.cursor].val);
             this.cursor++;
             break;
     // 背景変更
     case "BG":
-            $("#canvas").css("background-image", DEAD_SCENARIO[this.cursor].val);
+            $("#mainScreen").css("background-image", DEAD_SCENARIO[this.cursor].val);
             this.cursor++;
             this.play();
             break;
