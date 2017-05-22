@@ -5,9 +5,9 @@
 // ============================================================================
 
 // - point --------------------------------------------------------------------
-function Point(){
-	this.x = 0;
-	this.y = 0;
+function Point(x,y){
+	this.x = x;
+	this.y = y;
 }
 Point.prototype.Distance = function (p) {
     var q = new Point();
