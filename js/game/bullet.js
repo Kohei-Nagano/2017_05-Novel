@@ -1,27 +1,45 @@
+// ============================================================================
+// 
+// bullet.js
+// 
+// ============================================================================
 
-var Bullet = function () {
+// - const --------------------------------------------------------------------
+//var BULLET_COLOR = 'rgba(0, 0, 255, 0.75)';
+
+// - bullet ----------------------------------------------------------------
+
+var Bullet = function(ctx, position, target) {
+    //this.vector = target - new Point(screenCanvas.width, screenCanvas.height) / 2;
+    this.position = position;
+    this.ctx = ctx;
+    this.size = 3;
+    alert("Shot");
 }
 
 Bullet.prototype.Update = function () {
-    alert("");
+    //alert("");
+    this.position += new Point(0, 3);// this.vector;
 }
+
 Bullet.prototype.Draw = function () {
+    drawCircle(this.ctx, this.position, this.size, BULLET_COLOR);
 }
 
 var inherits = function (childCtor, parentCtor) {
-    // qƒNƒ‰ƒX‚Ì prototype ‚Ìƒvƒƒgƒ^ƒCƒv‚Æ‚µ‚Ä eƒNƒ‰ƒX‚Ì
-    // prototype ‚ğw’è‚·‚é‚±‚Æ‚ÅŒp³‚ªÀŒ»‚³‚ê‚é
+    // ï¿½qï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½ prototype ï¿½Ìƒvï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½Æ‚ï¿½ï¿½ï¿½ ï¿½eï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½
+    // prototype ï¿½ï¿½ï¿½wï¿½è‚·ï¿½é‚±ï¿½Æ‚ÅŒpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Object.setPrototypeOf(childCtor.prototype, parentCtor.prototype);
 };
 
 var EnemyBullet = function () {
     Bullet.call(this);
 }
-// inherits ‚ğg‚Á‚ÄeqŠÖŒW‚ğ–¾¦‚·‚é
+// inherits ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Äeï¿½qï¿½ÖŒWï¿½ğ–¾ï¿½ï¿½ï¿½ï¿½ï¿½
 inherits(EnemyBullet, Bullet);
 //override
 EnemyBullet.prototype.Update = function () {
-    // eƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh‚ğŒÄ‚Ño‚·ê‡‚ÍeƒNƒ‰ƒX‚Ì prototype ‚É
-    // ’è‹`‚³‚ê‚Ä‚¢‚éƒƒ\ƒbƒh‚ğ call ‚ğg‚Á‚ÄŒÄ‚Ño‚·B
+    // ï¿½eï¿½Nï¿½ï¿½ï¿½Xï¿½Ìƒï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½ê‡ï¿½Íeï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½ prototype ï¿½ï¿½
+    // ï¿½ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éƒï¿½\ï¿½bï¿½hï¿½ï¿½ call ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ÄŒÄ‚Ñoï¿½ï¿½ï¿½B
     Bullet.prototype.Update.call(this);
 }
