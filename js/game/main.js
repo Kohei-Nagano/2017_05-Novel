@@ -6,6 +6,7 @@
 
 // - global -------------------------------------------------------------------
 var screenCanvas, info;
+var enemy;
 var run = true;
 var fps = 1000 / 30;
 var mouse = new Point();
@@ -31,15 +32,19 @@ window.onload = function(){
 	
 	// canvas2dコンテキストを取得
 	ctx = screenCanvas.getContext('2d');
+    //エネミーの生成
+	enemy = new Enemy(10, 5, 2, new Point(0, 20), this.ctx);
 
 	// メインループ
-	(function(){
+    (function () {
+        enemy.Update();
 		// HTMLの更新
 		info.innerHTML = mouse.x + ' : ' + mouse.y;
 		
 		// screenをクリア 
         ctx.clearRect(0, 0, screenCanvas.width, screenCanvas.height);
 
+        enemy.Draw();
 		// 円を描画
 		drawCircle(ctx);
 

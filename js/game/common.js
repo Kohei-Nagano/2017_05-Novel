@@ -9,6 +9,25 @@ function Point(){
 	this.x = 0;
 	this.y = 0;
 }
+Point.prototype.Distance = function (p) {
+    var q = new Point();
+    q.x = p.x - this.x;
+    q.y = p.y - this.y;
+    return q;
+};
+
+Point.prototype.Length = function () {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+};
+
+Point.prototype.Normalize = function () {
+    var i = this.Length();
+    if (i > 0) {
+        var j = 1 / i;
+        this.x *= j;
+        this.y *= j;
+    }
+};
 
 function drawCircle(ctx){
         // パスの設定を開始
