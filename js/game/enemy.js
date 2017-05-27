@@ -1,5 +1,5 @@
 var SHOT_MAX_COUNT = 50;
-//コンストラクタ
+//?ｿｽR?ｿｽ?ｿｽ?ｿｽX?ｿｽg?ｿｽ?ｿｽ?ｿｽN?ｿｽ^
 var Enemy = function (src,hp, attack, speed, position, ctx,screenSize) {
     this.hp = hp;
     this.attack = attack;
@@ -7,7 +7,7 @@ var Enemy = function (src,hp, attack, speed, position, ctx,screenSize) {
     this.position = position;
     
     this.ctx = ctx;
-    /* Imageオブジェクトを生成 */
+    /* Image?ｿｽI?ｿｽu?ｿｽW?ｿｽF?ｿｽN?ｿｽg?ｿｽ?ｶ撰ｿｽ */
     this.img = new Image();
     this.img.src = src;
     this.screenSize = screenSize;
@@ -27,8 +27,10 @@ Enemy.prototype.Update = function () {
 }
 Enemy.prototype.Draw = function () {
     //alert(this.img.width / 2);
-    /* 画像を描画 */
-    this.ctx.drawImage(this.img, this.position.x - this.img.width / 2, this.position.y - this.img.height / 2);
+// 円を描画
+	drawCircle(this.ctx, this.position, 10, PLAYER_COLOR);
+
+    //this.ctx.drawImage(this.img, this.position.x - this.img.width / 2, this.position.y - this.img.height / 2);
 }
 
 Enemy.prototype.IsCollide = function(position, radius)
@@ -41,8 +43,8 @@ Enemy.prototype.Collide = function () {
 }
 
 var ENEMY_ID = {
-    GASTLY: 0,//ゴース
-    HAUNTER : 1//ゴースト
+    GASTLY: 0,//?ｿｽS?ｿｽ[?ｿｽX
+    HAUNTER : 1//?ｿｽS?ｿｽ[?ｿｽX?ｿｽg
 };
 
 var ENEMY_CREATE_INTERVAL = 60.0;
@@ -67,14 +69,14 @@ EnemyManager.prototype.Update = function()
 {
     this.createTimer += 1.0;
     this.Create();
-    var indices = new Array();//削除するindex
+    var indices = new Array();//?ｿｽ尞懶ｿｽ?ｿｽ?ｿｽ?ｿｽindex
     for (var i = 0; i < this.enemyArray.length; i++) {
         this.enemyArray[i].Update();
         if (this.enemyArray[i].isDead)
             indices.push(i);
     }
 
-    //削除処理
+    //?ｿｽ尞懶ｿｽ?ｿｽ?ｿｽ?ｿｽ
     for (var i = 0; i < indices.length; i++) {
         this.enemyArray.splice(indices[i], 1);
     }
@@ -90,29 +92,29 @@ EnemyManager.prototype.Create = function () {
         var imgIndex;
         if (r % 2 == 0) {
             imgIndex = ENEMY_ID.GASTLY;
-            //ゴース
+            //?ｿｽS?ｿｽ[?ｿｽX
         }
         else {
-            //ゴースト
+            //?ｿｽS?ｿｽ[?ｿｽX?ｿｽg
             imgIndex = ENEMY_ID.HAUNTER;
         }
-        //位置の確率
+        //?ｿｽﾊ置?ｿｽﾌ確?ｿｽ?ｿｽ
         var posPersec = createPersent / 4;
-        if (r <= posPersec)//左固定
+        if (r <= posPersec)//?ｿｽ?ｿｽ?ｿｽﾅ抵ｿｽ
         {
             p.x = -this.imgArray[imgIndex].width / 2;
         }
-        else if (r <= posPersec*2) {//右固定
+        else if (r <= posPersec*2) {//?ｿｽE?ｿｽﾅ抵ｿｽ
             p.x = this.screenSize.x + this.imgArray[imgIndex].width / 2;
         }
-        else if (r <= posPersec*3) {//上固定
+        else if (r <= posPersec*3) {//?ｿｽ?ｿｽ?ｿｽﾅ抵ｿｽ
             p.y = -this.imgArray[imgIndex].height / 2;
         }
-        else {//下固定
+        else {//?ｿｽ?ｿｽ?ｿｽﾅ抵ｿｽ
             p.y = this.screenSize.y + this.imgArray[imgIndex].height / 2;
 
         }
-        //imgIndex * でかけている数値がゴーストの+ステータス
+        //imgIndex * ?ｿｽﾅゑｿｽ?ｿｽ?ｿｽ?ｿｽﾄゑｿｽ?ｿｽ髏費ｿｽl?ｿｽ?ｿｽ?ｿｽS?ｿｽ[?ｿｽX?ｿｽg?ｿｽ?ｿｽ+?ｿｽX?ｿｽe?ｿｽ[?ｿｽ^?ｿｽX
         this.enemyArray.push(new Enemy(this.imgArray[imgIndex].src,10 + (imgIndex * 5), 5 + (imgIndex * 2), 2 + (imgIndex * 1), p, this.ctx, this.screenSize));
         this.createTimer = 0.0;
     }

@@ -42,6 +42,7 @@ var Novel = function() {
         this.max = 0;
         this.cursor = 0;
         this.setMainScenario();
+        this.game = new Game();
     }
 
 // 初期化
@@ -116,6 +117,9 @@ Novel.prototype.mainScenario = function(){
             //this.play();
             $("#mainScreen").hide();
             $("#gameScreen").show();
+            // ゲーム開始
+            this.game.start();
+            
         default:
             break;
     }

@@ -4,87 +4,94 @@
 // 
 // ============================================================================
 
-// - global -------------------------------------------------------------------
 var screenCanvas, info;
 var player;
-var shot = false;
 var enemyManager;
+var ctx; // canvas2d コンテキスト格納用
 var run = true;
 var fps = 1000 / 30;
 var mouse = new Point();
-var ctx; // canvas2d コンテキスト格納用
+
 var ShadowBallCount = 0;
 var MagicalShineCount = 0;
-// - main ---------------------------------------------------------------------
-window.onload = function(){
-	
-	// canvasの取得
+
+var Game = function() {
+	this.init();
+}
+
+Game.prototype.init = function () {
+		// canvasの取得
 	screenCanvas = document.getElementById('screen');
 	// canvasの横幅の設定
 	screenCanvas.width = 256;
 	// canvasの縦幅の設定
 	screenCanvas.height = 256;
 	
+	// thisを_this_に代入
+	var _this_ = this
 	// マウスの座標取得をイベントとして登録
-	screenCanvas.addEventListener('mousemove', mouseMove, true);
+	screenCanvas.addEventListener('mousemove', function(event){ return _this_.mouseMove(event);}, true);
+	// マウスの入力をイベントとして登録
+	screenCanvas.addEventListener('mousedown', function(event){ return _this_.mouseDown(event);}, true);
 	// キー入力の取得をイベントとして登録
-	window.addEventListener('keydown', keyDown, true);
-	
+	window.addEventListener('keydown', function(event){ return _this_.keyDown(event);}, true);
+
 	// infoの取得
 	info = document.getElementById('info');
-	
+
 	// canvas2dコンテキストを取得
 	ctx = screenCanvas.getContext('2d');
 
-	this.enemyManager = new EnemyManager(new Point(screenCanvas.width, screenCanvas.height),ctx);
-
 	//プレイヤーの生成
-	this.player = new Player(this.ctx, new Point(screenCanvas.width / 2, screenCanvas.height / 2), 10);
-	// マウスの座標取得をイベントとして登録
-	screenCanvas.addEventListener('mousedown', mouseDown, true);
-	
+	player = new Player(ctx, new Point(screenCanvas.width / 2, screenCanvas.height / 2), 10);
+
+	enemyManager = new EnemyManager(new Point(screenCanvas.width, screenCanvas.height), ctx);
+
 	// メインループ
     (function () {
         
-        this.enemyManager.Update();
-		this.player.Update();
+        player.Update();
+		enemyManager.Update();
 		
-        //enemy.Update();
 		// HTMLの更新
-		info.innerHTML = mouse.x + ' : ' + mouse.y + ' : ' + this.ShadowBallCount + ' : ' + this.MagicalShineCount;
+		info.innerHTML = mouse.x + ' : ' + mouse.y + ' : ' + ShadowBallCount + ' : ' + MagicalShineCount;
 		
 		// screenをクリア 
         ctx.clearRect(0, 0, screenCanvas.width, screenCanvas.height);
 
 		// プレイヤーを描画
-		this.player.Draw();
-        this.enemyManager.Draw();
+		player.Draw();
+        enemyManager.Draw();
 
-		this.player.Collide(this.enemyManager.enemyArray);
-
-        //this.enemyManager.IsCollide(mouse, 10);
+		player.Collide(enemyManager.enemyArray);
+		
+        if(player.IsDead() === true){
+			run = false;
+		}
 		
 		// 再帰呼び出しによりループを実現
 		// argument.callee => 自身の関数を参照できる
 		if(run){setTimeout(arguments.callee, fps);}
 	})();
-};
+}
+
+
+Game.prototype.start = function () {
+	run = true;
+	this.init();
+}
 
 // - event --------------------------------------------------------------------
-function mouseMove(event){
+Game.prototype.mouseMove = function (event) {
+//function mouseMove(event){
 	// canvas内のマウスの座標を代入
 	mouse.x = event.clientX - screenCanvas.offsetLeft;
 	mouse.y = event.clientY - screenCanvas.offsetTop;
 }
 
-function keyDown(event){
-	// Escを押すことでループを停止
-    if (event.keyCode === 27) { run = false; }
 
-    alert(this.enemyArray.length);
-}
-
-function mouseDown(event){
+Game.prototype.mouseDown = function (event) {
+//function mouseDown(event){
 	switch (event.button) {
     case 0 : 
 		player.Shot(event, mouse, "left");
@@ -97,4 +104,12 @@ function mouseDown(event){
 		MagicalShineCount++;
 	break;
 	}
+}
+
+Game.prototype.keyDown = function (event) {
+//function keyDown(event){
+	// Escを押すことでループを停止
+    if (event.keyCode === 27) { run = false; }
+
+    alert(enemyArray.length);
 }

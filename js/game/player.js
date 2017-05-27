@@ -45,6 +45,10 @@ Player.prototype.Draw = function(){
 	}
 };
 
+Player.prototype.IsDead = function(){
+	return this.isDead;
+};
+
 Player.prototype.Shot = function(event, mouse, id){
 	this.bullets.push(new Bullet(id, this.ctx, this.position, mouse));
 }
