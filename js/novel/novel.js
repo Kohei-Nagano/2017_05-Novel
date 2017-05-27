@@ -101,33 +101,36 @@ Novel.prototype.play = function(){
 Novel.prototype.setMainScenario = function(){
     this.max = MAIN_SCENARIO.length;
     this.scenario = SCENARIO.MAIN;
+    $("#serif").html("");
 }
 
 // ノーマルシナリオセット
 Novel.prototype.setNormalScenario = function(){
     this.max = NORMAL_SCENARIO.length;
     this.scenario = SCENARIO.NORMAL;
+    $("#serif").html("");
 }
 
 // トゥルーシナリオセット
 Novel.prototype.setTrueScenario = function(){
     this.max = TRUE_SCENARIO.length;
     this.scenario = SCENARIO.TRUE;
+    $("#serif").html("");
 }
 
 // バッドシナリオセット
 Novel.prototype.setBadScenario = function(){
     this.max = BAD_SCENARIO.length;
     this.scenario = SCENARIO.BAD;
+    $("#serif").html("");
 }
 
 // デッドシナリオセット
 Novel.prototype.setDeadScenario = function(){
     this.max = DEAD_SCENARIO.length;
     this.scenario = SCENARIO.DEAD;
+    $("#serif").html("");
 }
-
-
 
 Novel.prototype.mainScenario = function(){
     switch(MAIN_SCENARIO[this.cursor].com){
