@@ -14,21 +14,25 @@ var Player = function(ctx, position, size){
 	this.position = position;
 	this.size = size;
 	this.bullets = new Array();
-	this.flag = false;
+	this.isDead = false;
 }
 
 Player.prototype.Update = function(){
 
-	if(this.flag){
-		this.Shot();
-		this.flag = false;
-		alert("Shot");
-	}
-
+	var indices = new Array();
+	
 	// 玉更新
 	for(var i = 0; i < this.bullets.length; i++){
 		this.bullets[i].Update();
+		if (this.bullets[i].isDead){
+        	indices.push(i);
+		}
 	}
+
+	//削除処理
+    for (var i = 0; i < indices.length; i++) {
+        this.bullets.splice(indices[i], 1);
+    }
 };
 
 Player.prototype.Draw = function(){
@@ -41,20 +45,24 @@ Player.prototype.Draw = function(){
 	}
 };
 
-Player.prototype.Shot = function(){
-	var target = new Point(event.clientX - screenCanvas.offsetLeft, event.clientY - screenCanvas.offsetTop);
-	
-	this.bullets.push(new Bullet(this.ctx, this.position, target));
+Player.prototype.Shot = function(event, mouse, id){
+	this.bullets.push(new Bullet(id, this.ctx, this.position, mouse));
 }
 
-Player.prototype.mouseDown = function(event){
-	// canvas内のマウスの座標を代入
-	//var target = new Point(event.clientX - screenCanvas.offsetLeft, event.clientY - screenCanvas.offsetTop);
-	// 玉生成
-	//this.bullets.push(new Bullet());//this.ctx, target);
+Player.prototype.Collide = function(array){
+	for (var i = 0; i < array.length; i++) {
+		// プレイヤーとの判定
+		if (array[i].IsCollide(this.position, this.size)){
+            array[i].Collide();
+			this.isDead = true;
+		}
 
-	//Player.prototype.Shot();
-	this.flag = true;
-	
-	
+		for(var j = 0; j < this.bullets.length; j++){
+        	if (array[i].IsCollide(this.bullets[j].position, this.bullets[j].size)){
+            	array[i].Collide();
+				this.bullets[j].Collide();
+			}
+    	}			
+	}
 }
+
