@@ -12,7 +12,9 @@ var run = true;
 var fps = 1000 / 30;
 var mouse = new Point();
 
+// シャドウボール使用回数
 var ShadowBallCount = 0;
+// マジカル社員使用回数
 var MagicalShineCount = 0;
 
 var Game = function() {
@@ -44,12 +46,13 @@ Game.prototype.init = function () {
 
 	//プレイヤーの生成
 	player = new Player(ctx, new Point(screenCanvas.width / 2, screenCanvas.height / 2), 10);
-
+	//敵の生成
 	enemyManager = new EnemyManager(new Point(screenCanvas.width, screenCanvas.height), ctx);
 
 	// メインループ
     (function () {
         
+		// キャラ更新処理
         player.Update();
 		enemyManager.Update();
 		
@@ -59,12 +62,14 @@ Game.prototype.init = function () {
 		// screenをクリア 
         ctx.clearRect(0, 0, screenCanvas.width, screenCanvas.height);
 
-		// プレイヤーを描画
+		// キャラ描画処理
 		player.Draw();
         enemyManager.Draw();
 
+		// 衝突判定
 		player.Collide(enemyManager.enemyArray);
 		
+		// プレイヤーが死んだら停止
         if(player.IsDead() === true){
 			run = false;
 		}
@@ -75,23 +80,32 @@ Game.prototype.init = function () {
 	})();
 }
 
-
+// ゲーム開始
 Game.prototype.start = function () {
 	run = true;
 	this.init();
 }
 
+// シャドウボール使用回数取得
+Game.prototype.getShadowCount = function () {
+	return ShadowBallCount;
+}
+
+// マジがる社員使用回数取得
+Game.prototype.getShineCount = function () {
+	return MagicalShineCount;
+}
+
 // - event --------------------------------------------------------------------
+// マウスが移動したときの処理
 Game.prototype.mouseMove = function (event) {
-//function mouseMove(event){
 	// canvas内のマウスの座標を代入
 	mouse.x = event.clientX - screenCanvas.offsetLeft;
 	mouse.y = event.clientY - screenCanvas.offsetTop;
 }
 
-
+// マウスが押された時の処理
 Game.prototype.mouseDown = function (event) {
-//function mouseDown(event){
 	switch (event.button) {
     case 0 : 
 		player.Shot(event, mouse, "left");
@@ -106,8 +120,8 @@ Game.prototype.mouseDown = function (event) {
 	}
 }
 
+// キーが押された時の処理
 Game.prototype.keyDown = function (event) {
-//function keyDown(event){
 	// Escを押すことでループを停止
     if (event.keyCode === 27) { run = false; }
 
