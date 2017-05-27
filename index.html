@@ -5,41 +5,65 @@
         <title>Novel_9</title>
         <style type="text/css">
             #mainScreen{
+                z-index: 1;
                 width: 800px;
                 height: 600px;
                 border: 1px solid gray;
 
                 margin: auto;
+                display: none;
+            }
+            #serif_bg{
+                background: url(image/selif_bg.png);
+                position: absolute;
+                z-index: 3;
+                top: 400px;
+                width: 800px;
+                height: 200px;
             }
             #serif{
                 position: relative;
-                top: 350px;
+                z-index: 3;
+                top: 400px;
                 left: 100px;
                 width: 600px;
                 height: 200px;
-                border: 1px solid blue;	
-                background-color: rgba(255, 255, 255, 0.75);
+                //border: 1px solid blue;	
+                //background-color: rgba(255, 255, 255, 0.75);
                 padding: 10px;
                 user-select: none;
                 font-size: 18pt;
+
             }
             #chara{
                 position: relative;
+                z-index: 4;
                 top: 50px;
-                left: 400px;
-                width: 256px;
-                height: 256px;
+                left: 500px;
+                width: 300px;
+                height: 330px;
 
+                display: none;
                 background: url(image/chara/pippi_01.png);
             }
+            #item{
+                position: relative;
+                z-index: 4;
+                top: -400px;
+                left: 300px;
+                width: 200px;
+                height: 200px;
+                background: url(image/chara/stone1.png);              
 
+                display: none;
+            }
             #screen{
             	border: 1px solid gray;
             }
 
             #gameScreen{
-                width: 800px;
-                height: 600px;
+                width: 0px;
+                height: 0px;
                 margin: auto;
 
                 display: none;
@@ -55,22 +79,41 @@
 
     </head>
     <body>
-        <div id="mainScreen">
-            <div id= "serif"></div>
-            <div id= "chara"></div>
+        <div id="nowloading">
+        	<div id="nowloading-info">
+		        <img src="image/loading.gif">
+            </div>
         </div>
-
+        <div id="mainScreen">
+            <div id="serif_bg"></div>
+            <div id="serif"></div>
+            <div id="chara"></div>
+            <div id="item"></div>  
+        </div>
         <div id="gameScreen">
             <canvas id="screen"></canvas>
             <p id="info"></p>
         </div>
+
+        <audio id="gastly" src="sound/se/092.wav" auto></audio>
+        <audio id="haunter" src="sound/se/093.wav" auto></audio>
 
         <script src="js/jquery.min.js"></script>
         <script>
             var novel = new Novel();
 
             $(document).ready(function(){
-                novel.init();
+                var gastlySE = new Audio("sound/se/092.wav");
+                $(gastlySE).on("canplaythrough", function(){
+                    var haunterSE = new Audio("sound/se/093.wav");
+                    $(haunterSE).on("canplaythrough", function(){
+                        alert("読み込みが完了しました！");
+                        $("#mainScreen").show();
+                        $("#nowloading").hide();
+                        novel.init();
+                    });
+                });
+
 
                 $("#serif").on("click", function(){
                     novel.play();
