@@ -71,7 +71,6 @@ var SCENARIO = {
 var Novel = function() {    
         this.max = 0;
         this.cursor = 0;
-        this.setMainScenario();
         this.game = new Game(this);
     }
 
@@ -102,6 +101,7 @@ Novel.prototype.setMainScenario = function(){
     this.max = MAIN_SCENARIO.length;
     this.scenario = SCENARIO.MAIN;
     $("#serif").html("");
+    this.enableMainScreen();
 }
 
 // ノーマルシナリオセット
@@ -109,6 +109,7 @@ Novel.prototype.setNormalScenario = function(){
     this.max = NORMAL_SCENARIO.length;
     this.scenario = SCENARIO.NORMAL;
     $("#serif").html("");
+    this.enableMainScreen();
 }
 
 // トゥルーシナリオセット
@@ -116,6 +117,7 @@ Novel.prototype.setTrueScenario = function(){
     this.max = TRUE_SCENARIO.length;
     this.scenario = SCENARIO.TRUE;
     $("#serif").html("");
+    this.enableMainScreen();
 }
 
 // バッドシナリオセット
@@ -123,6 +125,7 @@ Novel.prototype.setBadScenario = function(){
     this.max = BAD_SCENARIO.length;
     this.scenario = SCENARIO.BAD;
     $("#serif").html("");
+    this.enableMainScreen();
 }
 
 // デッドシナリオセット
@@ -130,6 +133,23 @@ Novel.prototype.setDeadScenario = function(){
     this.max = DEAD_SCENARIO.length;
     this.scenario = SCENARIO.DEAD;
     $("#serif").html("");
+    this.enableMainScreen();
+}
+
+// メインスクリーン表示
+Novel.prototype.enableMainScreen = function(){
+    $("#mainScreen").css("width", "800px");
+    $("#mainScreen").css("height", "600px");
+    $("#gameScreen").hide();
+    $("#mainScreen").show();    
+}
+
+// メインスクリーン非表示
+Novel.prototype.disableMainScreen = function(){
+    $("#gameScreen").css("width", "800px");
+    $("#gameScreen").css("height", "600px");
+    $("#mainScreen").hide();
+    $("#gameScreen").show();
 }
 
 Novel.prototype.mainScenario = function(){
@@ -164,10 +184,7 @@ Novel.prototype.mainScenario = function(){
             this.cursor = 0;
             //this.setTrueScenario();
             //this.play();
-            $("#gameScreen").css("width", "800px");
-            $("#gameScreen").css("height", "600px");
-            $("#mainScreen").hide();
-            $("#gameScreen").show();
+            this.disableMainScreen();
             // ゲーム開始
             this.game.start();
             

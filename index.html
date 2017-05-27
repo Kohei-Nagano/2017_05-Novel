@@ -108,7 +108,6 @@
                     var haunterSE = new Audio("sound/se/093.wav");
                     $(haunterSE).on("canplaythrough", function(){
                         alert("読み込みが完了しました！");
-                        $("#mainScreen").show();
                         $("#nowloading").hide();
                         novel.init();
                     });
