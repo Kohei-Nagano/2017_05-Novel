@@ -65,8 +65,26 @@ var TRUE_SCENARIO = [
     , {com:"S",  val:"めでたしめでたし"}
 ];
 var BAD_SCENARIO = [
-      {com:"BG", val:"url(image/bg/BG001.jpg)"}
-    , {com:"S",  val:"バッドエンドである<br>"}
+      {com:"BG", val:"url(image/bg/BG004.png)"}
+    , {com:"PE",  val:"url(image/chara/pippi_01.png)"}
+    , {com:"S",  val:"フハハハハハッ！<br>吾輩にかかればゴースの群れなぞ雑魚にすぎぬのだ"}
+    , {com:"S",  val:"倒せば倒すほど「とくこう」がみなぎっていったぞ"}
+    , {com:"S",  val:"そこはゴースどもに感謝せんとな"}
+    , {com:"IE",  val:"url(image/chara/stone1.png)"}
+    , {com:"S",  val:""}
+    , {com:"S",  val:"おお、とうとう見つけたぞ月の石"}
+    , {com:"S",  val:"これを使えば、吾輩もピクシーになって戦場で名を轟かせることになるのだな"}
+    , {com:"S",  val:"フハハハハハッ！！<br>よいぞ・・・よいぞ・・・！！"}
+    , {com:"S",  val:"月の石よ！<br>吾輩に力をっ！！！"}
+    , {com:"IE",  val:"url(image/chara/stone2.png)"}
+    , {com:"S",  val:"………"}
+    , {com:"S",  val:"……"}
+    , {com:"PE",  val:"url(image/chara/gengar.png)"}
+    , {com:"S",  val:"…"}
+    , {com:"SE",  val:"#genger"}
+    , {com:"ID",  val:"…"}
+    , {com:"PD",  val:"…"}
+    , {com:"S",  val:"BAD END<br>ピクシーとゲンガー２"}
     , {com:"E",  val:""}
 ];
 var DEAD_SCENARIO = [
@@ -139,39 +157,38 @@ Novel.prototype.setMainScenario = function(){
     $("#serif").html("");
     this.enableMainScreen();
 }
-
 // ノーマルシナリオセット
 Novel.prototype.setNormalScenario = function(){
     this.max = NORMAL_SCENARIO.length;
     this.scenario = SCENARIO.NORMAL;
     $("#serif").html("");
     this.enableMainScreen();
+    this.play();
 }
-
 // トゥルーシナリオセット
 Novel.prototype.setTrueScenario = function(){
     this.max = TRUE_SCENARIO.length;
     this.scenario = SCENARIO.TRUE;
     $("#serif").html("");
     this.enableMainScreen();
+    this.play();
 }
-
 // バッドシナリオセット
 Novel.prototype.setBadScenario = function(){
     this.max = BAD_SCENARIO.length;
     this.scenario = SCENARIO.BAD;
     $("#serif").html("");
     this.enableMainScreen();
+    this.play();
 }
-
 // デッドシナリオセット
 Novel.prototype.setDeadScenario = function(){
     this.max = DEAD_SCENARIO.length;
     this.scenario = SCENARIO.DEAD;
     $("#serif").html("");
     this.enableMainScreen();
+    this.play();
 }
-
 // メインスクリーン表示
 Novel.prototype.enableMainScreen = function(){
     $("#mainScreen").css("width", "800px");
@@ -179,7 +196,6 @@ Novel.prototype.enableMainScreen = function(){
     $("#gameScreen").hide();
     $("#mainScreen").show();    
 }
-
 // メインスクリーン非表示
 Novel.prototype.disableMainScreen = function(){
     $("#gameScreen").css("width", "800px");
@@ -302,7 +318,7 @@ Novel.prototype.badScenario = function(){
     switch(BAD_SCENARIO[this.cursor].com){
     // セリフ再生
     case "S":
-            $("#mainScreen").html(BAD_SCENARIO[this.cursor].val);
+            $("#serif").html(BAD_SCENARIO[this.cursor].val);
             this.cursor++;
             break;
     // 背景変更
@@ -311,10 +327,49 @@ Novel.prototype.badScenario = function(){
             this.cursor++;
             this.play();
             break;
+        // キャラ表示
+    case "PE":
+        $("#serif").css("width", "450px");
+        $("#chara").css("background", BAD_SCENARIO[this.cursor].val);
+        $("#chara").show();
+        this.cursor++;
+        this.play();
+        break;
+    // キャラ非表示
+    case "PD":
+        $("#serif").css("width", "600px");
+        $("#chara").hide();
+        this.cursor++;
+        this.play();
+        break;
+    // アイテム表示
+    case "IE":
+        $("#item").css("background", BAD_SCENARIO[this.cursor].val);
+        $("#item").show();
+        this.cursor++;
+        this.play();
+        break;
+    // アイテム非表示
+    case "ID":
+        $("#item").hide();
+        this.cursor++;
+        this.play();
+        break;
+    // 背景変更
+    case "BG":
+        $("#mainScreen").css("background-image", BAD_SCENARIO[this.cursor].val);
+        this.cursor++;
+        this.play();
+        break;
+    // SE再生
+    case "SE":
+        var au = $(BAD_SCENARIO[this.cursor].val).get(0);
+        au.play();
+        this.cursor++;
+        this.play();
+        break;
     // 終了
     case "E":
-            break;
-    default:
             break;
     }
 }
@@ -332,7 +387,7 @@ Novel.prototype.deadScenario = function(){
         this.cursor++;
         this.play();
         break;
-        // キャラ表示
+    // キャラ表示
     case "PE":
         $("#serif").css("width", "450px");
         $("#chara").css("background", "url(image/chara/haunter.png)");
@@ -376,8 +431,6 @@ Novel.prototype.deadScenario = function(){
 
     // 終了
     case "E":
-            break;
-    default:
             break;
     }
 }
