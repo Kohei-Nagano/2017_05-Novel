@@ -38,7 +38,7 @@ Player.prototype.Update = function(){
 };
 
 Player.prototype.Draw = function(){
-	// 円を描画
+	// 描画
 	this.ctx.drawImage(this.img, this.position.x - this.img.width / 2, this.position.y - this.img.height / 2);
 
 	// 玉描画
@@ -63,13 +63,13 @@ Player.prototype.CalcLength = function(mouse){
 Player.prototype.Collide = function(array){
 	for (var i = 0; i < array.length; i++) {
 		// プレイヤーとの判定
-		if (array[i].IsCollide(this.position, this.img.width / 4)){
+		if (array[i].IsCollide(this.position, this.img.width / 2)){
             array[i].Collide();
 			this.isDead = true;
 		}
 
 		for(var j = 0; j < this.bullets.length; j++){
-        	if (array[i].IsCollide(this.bullets[j].position, this.bullets[j].size / 2)){
+        	if (array[i].IsCollide(this.bullets[j].position, this.bullets[j].img.width / 2)){
             	array[i].Collide();
 				this.bullets[j].Collide();
 			}
