@@ -70,8 +70,29 @@ var BAD_SCENARIO = [
     , {com:"E",  val:""}
 ];
 var DEAD_SCENARIO = [
-      {com:"BG", val:"url(image/bg/BG001.jpg)"}
-    , {com:"S",  val:"デッドエンドである<br>"}
+      {com:"BG", val:"url(image/bg/BG005.png)"}
+    , {com:"PE",  val:""}
+    , {com:"S",  val:"キヒヒッ<br>"}
+    , {com:"S",  val:"ピッピ一匹如きで俺たちに勝てるわけないんだよなぁ"}
+    , {com:"S",  val:"ましてや、ノーマルタイプからフェアリータイプに変わっている状態だからな"}
+    , {com:"S",  val:"タイプ相性が変わって、俺たちゴーストタイプの技も当たっちまうようになってるからなぁ"}
+    , {com:"S",  val:"キヒヒッ"}
+    , {com:"S",  val:"さて、これからどうしたものかな"}
+    , {com:"IE",  val:"url(image/chara/stone1.png)"}
+    , {com:"S",  val:""}
+    , {com:"S",  val:"あそこにあるのは月の石か"}
+    , {com:"S",  val:"月の石、ピッピ………"}
+    , {com:"S",  val:"キヒヒッ、こいつぁいいこと思いついた"}
+    , {com:"S",  val:"このピッピには俺様のエサになってもらうぜええええええ"}
+    , {com:"BG", val:"url(image/bg/BG004.png)"}
+    , {com:"ID",  val:""}
+    , {com:"PD",  val:""}
+    , {com:"S",  val:"………"}
+    , {com:"S",  val:"……"}
+    , {com:"S",  val:"…"}
+    , {com:"SE",  val:"#genger"}
+    , {com:"BG", val:"url(image/bg/BG007.jpg)"}
+    , {com:"S",  val:"DEAD END<br>ピクシーとゲンガー１"}
     , {com:"E",  val:""}
 ];
 
@@ -204,8 +225,6 @@ Novel.prototype.mainScenario = function(){
         //
         case "E":
             this.cursor = 0;
-            //this.setTrueScenario();
-            //this.play();
             this.disableMainScreen();
             // ゲーム開始
             this.game.start();
@@ -304,15 +323,57 @@ Novel.prototype.deadScenario = function(){
     switch(DEAD_SCENARIO[this.cursor].com){
     // セリフ再生
     case "S":
-            $("#mainScreen").html(DEAD_SCENARIO[this.cursor].val);
-            this.cursor++;
-            break;
+        $("#serif").html(DEAD_SCENARIO[this.cursor].val);
+        this.cursor++;
+        break;
     // 背景変更
     case "BG":
-            $("#mainScreen").css("background-image", DEAD_SCENARIO[this.cursor].val);
-            this.cursor++;
-            this.play();
-            break;
+        $("#mainScreen").css("background-image", DEAD_SCENARIO[this.cursor].val);
+        this.cursor++;
+        this.play();
+        break;
+        // キャラ表示
+    case "PE":
+        $("#serif").css("width", "450px");
+        $("#chara").css("background", "url(image/chara/haunter.png)");
+        $("#chara").show();
+        this.cursor++;
+        this.play();
+        break;
+    // キャラ非表示
+    case "PD":
+        $("#serif").css("width", "600px");
+        $("#chara").hide();
+        this.cursor++;
+        this.play();
+        break;
+    // アイテム表示
+    case "IE":
+        $("#item").css("background", DEAD_SCENARIO[this.cursor].val);
+        $("#item").show();
+        this.cursor++;
+        this.play();
+        break;
+    // アイテム非表示
+    case "ID":
+        $("#item").hide();
+        this.cursor++;
+        this.play();
+        break;
+    // 背景変更
+    case "BG":
+        $("#mainScreen").css("background-image", DEAD_SCENARIO[this.cursor].val);
+        this.cursor++;
+        this.play();
+        break;
+    // SE再生
+    case "SE":
+        var au = $(DEAD_SCENARIO[this.cursor].val).get(0);
+        au.play();
+        this.cursor++;
+        this.play();
+        break;
+
     // 終了
     case "E":
             break;
