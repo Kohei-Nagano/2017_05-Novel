@@ -180,7 +180,6 @@ Novel.prototype.setNormalScenario = function(){
     this.scenario = SCENARIO.NORMAL;
     $("#serif").html("");
     this.enableMainScreen();
-    this.play();
 }
 // トゥルーシナリオセット
 Novel.prototype.setTrueScenario = function(){
@@ -188,7 +187,6 @@ Novel.prototype.setTrueScenario = function(){
     this.scenario = SCENARIO.TRUE;
     $("#serif").html("");
     this.enableMainScreen();
-    this.play();
 }
 // バッドシナリオセット
 Novel.prototype.setBadScenario = function(){
@@ -196,7 +194,6 @@ Novel.prototype.setBadScenario = function(){
     this.scenario = SCENARIO.BAD;
     $("#serif").html("");
     this.enableMainScreen();
-    this.play();
 }
 // デッドシナリオセット
 Novel.prototype.setDeadScenario = function(){
@@ -204,7 +201,6 @@ Novel.prototype.setDeadScenario = function(){
     this.scenario = SCENARIO.DEAD;
     $("#serif").html("");
     this.enableMainScreen();
-    this.play();
 }
 // メインスクリーン表示
 Novel.prototype.enableMainScreen = function(){
