@@ -7,7 +7,7 @@ var MAIN_SCENARIO = [
     , {com:"BG", val:"url(image/bg/BG003.png)"}
     , {com:"S",  val:"というものだ。<br>"}
     , {com:"S",  val:"この話を聞きつけたピッピは、<br>月の石を手に入れるべくおつきみ山に探索しに行くのであった。<br>"}
-    , {com:"PA",  val:""}
+    , {com:"PE",  val:""}
     , {com:"S",  val:"吾輩はピッピである。<br>ニックネームはまだない。"}
     , {com:"S",  val:"どこで生まれたか…<br>まあ、この辺はいいとしよう。"}
     , {com:"S",  val:"吾輩といえば、第六世代になってタイプがノーマルからフェアリーへ変更されたポケモンの一匹である。"}
@@ -25,21 +25,36 @@ var MAIN_SCENARIO = [
     , {com:"S",  val:"なんたって、進化したらもとには戻れないのだからな。"}
     , {com:"S",  val:"…"}
     , {com:"S",  val:"よし、では月の石探索に行くとしよう。"}
+    , {com:"PD",  val:""}
     , {com:"S",  val:"………"}
     , {com:"S",  val:"……"}
     , {com:"S",  val:"…"}
     , {com:"BG", val:"url(image/bg/BG005.png)"}
+    , {com:"PE",  val:""}
     , {com:"S",  val:"結構奥に来てみたはいいが、なかなか見つからないな"}
     , {com:"SE",  val:"#gastly"}
     , {com:"S",  val:"キシャァァァァッァァー"}
     , {com:"S",  val:"この鳴き声はゴースか？"}
     , {com:"S",  val:"おつきみ山にゴースは生息していただろうか？"}
     , {com:"S",  val:"まぁいい。<br>この際ゴースには、吾輩の強化の為の踏み台になってもらおう"}
+    , {com:"PD",  val:""}
     , {com:"E",  val:""}
 ];
 var NORMAL_SCENARIO = [
-      {com:"BG", val:"url(image/bg/BG001.jpg)"}
-    , {com:"S",  val:"ノーマルエンドである<br>"}
+      {com:"BG", val:"url(image/bg/BG005.png)"}
+    , {com:"PE",  val:""}
+    , {com:"S",  val:"ッフ、猪口才な<br>（ﾑｷｯ）"}
+    , {com:"S",  val:"それにしても、身体の内から物凄いパワーが沸き上がるッピな<br>（ﾑｷｯ）"}
+    , {com:"S",  val:"うっ…、<br>この力、抑えきれないッピ<br>（ﾑｷｯ）"}
+    , {com:"S",  val:"このままだと身体が爆発するッピ<br>（ﾑｷｯﾑｷｯ）"}
+    , {com:"S",  val:"ギャアアアアアアアアアアアアアアアアアアアアアアアアアアアアアア<br>（ﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷﾑｷ）"}
+    , {com:"PD",  val:""}
+    , {com:"S",  val:"………"}
+    , {com:"S",  val:"……"}
+    , {com:"S",  val:"…"}
+    , {com:"BG", val:"url(image/bg/BG006.jpg)"}
+    , {com:"SE",  val:"#mewtwo"}
+    , {com:"S",  val:"NORMAL END<br>ギエピー爆誕"}
     , {com:"E",  val:""}
 ];
 var TRUE_SCENARIO = [
@@ -159,10 +174,17 @@ Novel.prototype.mainScenario = function(){
             $("#serif").html(MAIN_SCENARIO[this.cursor].val);
             this.cursor++;
             break;
-        // セリフ再生
-        case "PA":
+        // キャラ表示
+        case "PE":
             $("#serif").css("width", "450px");
             $("#chara").show();
+            this.cursor++;
+            this.play();
+            break;
+        // キャラ非表示
+        case "PD":
+            $("#serif").css("width", "600px");
+            $("#chara").hide();
             this.cursor++;
             this.play();
             break;
@@ -174,7 +196,7 @@ Novel.prototype.mainScenario = function(){
             break;
         // SE再生
         case "SE":
-            var au = $("#gastly").get(0);
+            var au = $(MAIN_SCENARIO[this.cursor].val).get(0);
             au.play();
             this.cursor++;
             this.play();
@@ -200,12 +222,33 @@ Novel.prototype.normalScenario = function(){
             $("#serif").html(NORMAL_SCENARIO[this.cursor].val);
             this.cursor++;
             break;
+    // キャラ表示
+    case "PE":
+        $("#serif").css("width", "450px");
+        $("#chara").show();
+        this.cursor++;
+        this.play();
+        break;
+    // キャラ非表示
+    case "PD":
+        $("#serif").css("width", "600px");
+        $("#chara").hide();
+        this.cursor++;
+        this.play();
+        break;
     // 背景変更
     case "BG":
             $("#mainScreen").css("background-image", NORMAL_SCENARIO[this.cursor].val);
             this.cursor++;
             this.play();
             break;
+    // SE再生
+    case "SE":
+        var au = $(NORMAL_SCENARIO[this.cursor].val).get(0);
+        au.play();
+        this.cursor++;
+        this.play();
+        break;
     // 終了
     case "E":
             break;
