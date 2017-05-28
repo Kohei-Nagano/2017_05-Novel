@@ -58,11 +58,28 @@ var NORMAL_SCENARIO = [
     , {com:"E",  val:""}
 ];
 var TRUE_SCENARIO = [
-      {com:"BG", val:"url(image/bg/BG001.jpg)"}
-    , {com:"S",  val:"昔々、あるところに"}
-    , {com:"S",  val:"おじいさんとおばあさんがおりましたとさ"}
-    , {com:"BG", val:"url(image/bg/BG002.jpg)"}
-    , {com:"S",  val:"めでたしめでたし"}
+      {com:"BG", val:"url(image/bg/BG004.png)"}
+    , {com:"PE",  val:"url(image/chara/pippi_01.png)"}
+    , {com:"S",  val:"ふぅ………、<br>ゴース共はあらかた片付いたみたいだな。"}
+    , {com:"S",  val:"それにしたって、どうしておつきみ山にゴースが…。"}
+    , {com:"S",  val:"…"}
+    , {com:"S",  val:"まぁ、過ぎたことはいいとしよう。"}
+    , {com:"S",  val:"それはさておき、戦いながら洞窟の奥の方に来てみたわけだが、"}
+    , {com:"S",  val:"ここは天井が空いていて、月の光が射しているみたいだな。"}
+    , {com:"S",  val:"月の光…<br>ということは！"}
+    , {com:"IE",  val:"url(image/chara/stone1.png)"}
+    , {com:"S",  val:"あったぞ！月の石が！"}
+    , {com:"S",  val:"これで吾輩もピクシーになれるんだな。"}
+    , {com:"S",  val:"くぅ疲"}
+    , {com:"S",  val:"待っていろよ、第7世代の戦場よ"}
+    , {com:"S",  val:"吾輩がフェアリータイプのトップになってみせるのじゃ"}
+    , {com:"ID",  val:"…"}
+    , {com:"PD",  val:"…"}
+    , {com:"S",  val:"………"}
+    , {com:"S",  val:"……"}
+    , {com:"S",  val:"…"}
+    , {com:"SE",  val:"#clefable"}
+    , {com:"S",  val:"TRUE END<br>積み・補助ポケキラー「ピクシー」"}
 ];
 var BAD_SCENARIO = [
       {com:"BG", val:"url(image/bg/BG004.png)"}
@@ -297,7 +314,7 @@ Novel.prototype.trueScenario = function(){
     switch(TRUE_SCENARIO[this.cursor].com){
     // セリフ再生
     case "S":
-            $("#mainScreen").html(TRUE_SCENARIO[this.cursor].val);
+            $("#serif").html(TRUE_SCENARIO[this.cursor].val);
             this.cursor++;
             break;
     // 背景変更
@@ -306,6 +323,47 @@ Novel.prototype.trueScenario = function(){
             this.cursor++;
             this.play();
             break;
+        // キャラ表示
+    case "PE":
+        $("#serif").css("width", "450px");
+        $("#chara").css("background", TRUE_SCENARIO[this.cursor].val);
+        $("#chara").show();
+        this.cursor++;
+        this.play();
+        break;
+    // キャラ非表示
+    case "PD":
+        $("#serif").css("width", "600px");
+        $("#chara").hide();
+        this.cursor++;
+        this.play();
+        break;
+    // アイテム表示
+    case "IE":
+        $("#item").css("background", TRUE_SCENARIO[this.cursor].val);
+        $("#item").show();
+        this.cursor++;
+        this.play();
+        break;
+    // アイテム非表示
+    case "ID":
+        $("#item").hide();
+        this.cursor++;
+        this.play();
+        break;
+    // 背景変更
+    case "BG":
+        $("#mainScreen").css("background-image", TRUE_SCENARIO[this.cursor].val);
+        this.cursor++;
+        this.play();
+        break;
+    // SE再生
+    case "SE":
+        var au = $(TRUE_SCENARIO[this.cursor].val).get(0);
+        au.play();
+        this.cursor++;
+        this.play();
+        break;
     // 終了
     case "E":
             break;
@@ -327,7 +385,7 @@ Novel.prototype.badScenario = function(){
             this.cursor++;
             this.play();
             break;
-        // キャラ表示
+    // キャラ表示
     case "PE":
         $("#serif").css("width", "450px");
         $("#chara").css("background", BAD_SCENARIO[this.cursor].val);
