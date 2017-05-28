@@ -15,6 +15,8 @@ var Player = function(ctx, position, size){
 	this.size = size;
 	this.bullets = new Array();
 	this.isDead = false;
+	this.img = new Image();
+	this.img.src = "image/game/player.png";
 }
 
 Player.prototype.Update = function(){
@@ -37,7 +39,7 @@ Player.prototype.Update = function(){
 
 Player.prototype.Draw = function(){
 	// 円を描画
-	drawCircle(this.ctx, this.position, this.size, PLAYER_COLOR);
+	this.ctx.drawImage(this.img, this.position.x - this.img.width / 2, this.position.y - this.img.height / 2);
 
 	// 玉描画
 	for(var i = 0; i < this.bullets.length; i++){
@@ -53,16 +55,21 @@ Player.prototype.Shot = function(event, mouse, id){
 	this.bullets.push(new Bullet(id, this.ctx, this.position, mouse));
 }
 
+Player.prototype.CalcLength = function(mouse){
+	var vector = new Point(this.position.x - mouse.x, this.position.y - mouse.y)
+	return vector.Length();
+}
+
 Player.prototype.Collide = function(array){
 	for (var i = 0; i < array.length; i++) {
 		// プレイヤーとの判定
-		if (array[i].IsCollide(this.position, this.size)){
+		if (array[i].IsCollide(this.position, this.img.width / 4)){
             array[i].Collide();
 			this.isDead = true;
 		}
 
 		for(var j = 0; j < this.bullets.length; j++){
-        	if (array[i].IsCollide(this.bullets[j].position, this.bullets[j].size)){
+        	if (array[i].IsCollide(this.bullets[j].position, this.bullets[j].size / 2)){
             	array[i].Collide();
 				this.bullets[j].Collide();
 			}

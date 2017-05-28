@@ -1,5 +1,5 @@
 var SHOT_MAX_COUNT = 50;
-//?¿½R?¿½?¿½?¿½X?¿½g?¿½?¿½?¿½N?¿½^
+//?ï¿½ï¿½R?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½X?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½N?ï¿½ï¿½^
 var Enemy = function (src,hp, attack, speed, position, ctx,screenSize) {
     this.hp = hp;
     this.attack = attack;
@@ -7,7 +7,7 @@ var Enemy = function (src,hp, attack, speed, position, ctx,screenSize) {
     this.position = position;
     
     this.ctx = ctx;
-    /* Image?¿½I?¿½u?¿½W?¿½F?¿½N?¿½g?¿½?¶ï¿½ */
+    /* Image?ï¿½ï¿½I?ï¿½ï¿½u?ï¿½ï¿½W?ï¿½ï¿½F?ï¿½ï¿½N?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½ï¿½ */
     this.img = new Image();
     this.img.src = src;
     this.screenSize = screenSize;
@@ -27,10 +27,8 @@ Enemy.prototype.Update = function () {
 }
 Enemy.prototype.Draw = function () {
     //alert(this.img.width / 2);
-// ‰~‚ğ•`‰æ
-	drawCircle(this.ctx, this.position, 10, PLAYER_COLOR);
-
-    //this.ctx.drawImage(this.img, this.position.x - this.img.width / 2, this.position.y - this.img.height / 2);
+    // ï¿½~ï¿½ï¿½ï¿½`ï¿½ï¿½
+	this.ctx.drawImage(this.img, this.position.x - this.img.width / 2, this.position.y - this.img.height / 2);
 }
 
 Enemy.prototype.IsCollide = function(position, radius)
@@ -43,8 +41,8 @@ Enemy.prototype.Collide = function () {
 }
 
 var ENEMY_ID = {
-    GASTLY: 0,//?¿½S?¿½[?¿½X
-    HAUNTER : 1//?¿½S?¿½[?¿½X?¿½g
+    GASTLY: 0,//?ï¿½ï¿½S?ï¿½ï¿½[?ï¿½ï¿½X
+    HAUNTER : 1//?ï¿½ï¿½S?ï¿½ï¿½[?ï¿½ï¿½X?ï¿½ï¿½g
 };
 
 var ENEMY_CREATE_INTERVAL = 60.0;
@@ -57,11 +55,11 @@ var EnemyManager = function(screenSize,ctx)
     this.createTimer = 0.0;
     this.imgArray = new Array(2);
     var img1 = new Image();
-    img1.src = "../../image/sample.png";
+    img1.src = "image/game/enemy1.png";
     this.imgArray[ENEMY_ID.GASTLY] = img1;
 
     var img2 = new Image();
-    img2.src = "../../image/shot_sample.png";
+    img2.src = "image/game/enemy2.png";
     this.imgArray[ENEMY_ID.HAUNTER] = img2;
 }
 
@@ -69,14 +67,14 @@ EnemyManager.prototype.Update = function()
 {
     this.createTimer += 1.0;
     this.Create();
-    var indices = new Array();//?¿½ú«œï¿½?¿½?¿½?¿½index
+    var indices = new Array();//?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½index
     for (var i = 0; i < this.enemyArray.length; i++) {
         this.enemyArray[i].Update();
         if (this.enemyArray[i].isDead)
             indices.push(i);
     }
 
-    //?¿½ú«œï¿½?¿½?¿½?¿½
+    //?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½
     for (var i = 0; i < indices.length; i++) {
         this.enemyArray.splice(indices[i], 1);
     }
@@ -92,29 +90,29 @@ EnemyManager.prototype.Create = function () {
         var imgIndex;
         if (r % 2 == 0) {
             imgIndex = ENEMY_ID.GASTLY;
-            //?¿½S?¿½[?¿½X
+            //?ï¿½ï¿½S?ï¿½ï¿½[?ï¿½ï¿½X
         }
         else {
-            //?¿½S?¿½[?¿½X?¿½g
+            //?ï¿½ï¿½S?ï¿½ï¿½[?ï¿½ï¿½X?ï¿½ï¿½g
             imgIndex = ENEMY_ID.HAUNTER;
         }
-        //?¿½Ê’u?¿½ÌŠm?¿½?¿½
+        //?ï¿½ï¿½Ê’u?ï¿½ï¿½ÌŠm?ï¿½ï¿½?ï¿½ï¿½
         var posPersec = createPersent / 4;
-        if (r <= posPersec)//?¿½?¿½?¿½Å’ï¿½
+        if (r <= posPersec)//?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½Å’ï¿½
         {
             p.x = -this.imgArray[imgIndex].width / 2;
         }
-        else if (r <= posPersec*2) {//?¿½E?¿½Å’ï¿½
+        else if (r <= posPersec*2) {//?ï¿½ï¿½E?ï¿½ï¿½Å’ï¿½
             p.x = this.screenSize.x + this.imgArray[imgIndex].width / 2;
         }
-        else if (r <= posPersec*3) {//?¿½?¿½?¿½Å’ï¿½
+        else if (r <= posPersec*3) {//?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½Å’ï¿½
             p.y = -this.imgArray[imgIndex].height / 2;
         }
-        else {//?¿½?¿½?¿½Å’ï¿½
+        else {//?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½Å’ï¿½
             p.y = this.screenSize.y + this.imgArray[imgIndex].height / 2;
 
         }
-        //imgIndex * ?¿½Å‚ï¿½?¿½?¿½?¿½Ä‚ï¿½?¿½é”ï¿½l?¿½?¿½?¿½S?¿½[?¿½X?¿½g?¿½?¿½+?¿½X?¿½e?¿½[?¿½^?¿½X
+        //imgIndex * ?ï¿½ï¿½Å‚ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½Ä‚ï¿½?ï¿½ï¿½é”ï¿½l?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½S?ï¿½ï¿½[?ï¿½ï¿½X?ï¿½ï¿½g?ï¿½ï¿½?ï¿½ï¿½+?ï¿½ï¿½X?ï¿½ï¿½e?ï¿½ï¿½[?ï¿½ï¿½^?ï¿½ï¿½X
         this.enemyArray.push(new Enemy(this.imgArray[imgIndex].src,10 + (imgIndex * 5), 5 + (imgIndex * 2), 2 + (imgIndex * 1), p, this.ctx, this.screenSize));
         this.createTimer = 0.0;
     }
