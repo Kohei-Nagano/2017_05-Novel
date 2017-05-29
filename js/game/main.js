@@ -85,12 +85,18 @@ Game.prototype.init = function () {
 		// プレイヤーが死んだら停止＆シナリオ分岐
     	if(player.IsDead() === true){
 			run = false;
+			//var au = $("game_bgm").get(0);
+			//au.pause();
+			//au.currentTime = 0;
 			this.novel.setDeadScenario();
 		}		
 		// 制限時間終了時ゲーム終了分岐
 		else if(frameCount > GAME_LIMIT){
 			run = false;
-	
+			//var au = $("game_bgm").get(0);
+			//au.pause();
+			//au.currentTime = 0;
+
 			if(ShadowBallCount >= MagicalShineCount && 
 	   				ShadowBallCount >= CometPunchCount){
 				this.novel.setBadScenario();
@@ -117,6 +123,8 @@ Game.prototype.init = function () {
 Game.prototype.start = function () {
 	alert("遊び方\n左クリック：マジカルシャイン\n右クリック(遠距離)：シャドウボール\n右クリック(近距離)：コメットパンチ");
 	run = true;
+	//var au = $("game_bgm").get(0);
+	//au.play();
 	this.init();
 }
 
