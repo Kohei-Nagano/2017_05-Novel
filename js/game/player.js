@@ -65,7 +65,7 @@ Player.prototype.Collide = function(array){
 		// プレイヤーとの判定
 		if (array[i].IsCollide(this.position, this.img.width / 2)){
             array[i].Collide();
-			this.isDead = true;
+			//this.isDead = true;
 		}
 
 		for(var j = 0; j < this.bullets.length; j++){

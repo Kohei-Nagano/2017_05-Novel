@@ -18,20 +18,22 @@ var Bullet = function(id, ctx, position, mouse) {
     this.speed = 0;
     this.deadLength = this.screenSize.x;
     this.img = new Image();
+    this.au = $("#" + id).get(0);
+    this.au.play();
 
     if(id === "shine"){
         this.BULLET_COLOR = 'rgba(125, 255, 125, 0.75)';
-        this.speed = 20;
-        this.img.src = "image/game/shine.png";
+        this.speed = 10;
+        this.img.src = "image/game/shine.png";        
     }
     else if(id === "shadow"){
         this.BULLET_COLOR = 'rgba(0, 0, 0, 0.75)';
-        this.speed = 30;
+        this.speed = 20;
         this.img.src = "image/game/shadow_ball.png";
     }
     else if(id === "comet"){
         this.BULLET_COLOR = 'rgba(255, 255, 125, 0.75)';
-        this.speed = 15;
+        this.speed = 8;
         this.deadLength = 50;
         this.img.src = "image/game/punch.png";
     }

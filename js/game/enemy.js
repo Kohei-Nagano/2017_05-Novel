@@ -113,7 +113,7 @@ EnemyManager.prototype.Create = function () {
 
         }
         //imgIndex * ?��ł�?��?��?��Ă�?��鐔�l?��?��?��S?��[?��X?��g?��?��+?��X?��e?��[?��^?��X
-        this.enemyArray.push(new Enemy(this.imgArray[imgIndex].src,10 + (imgIndex * 5), 5 + (imgIndex * 2), 10 + (imgIndex * 1), p, this.ctx, this.screenSize));
+        this.enemyArray.push(new Enemy(this.imgArray[imgIndex].src,10 + (imgIndex * 5), 5 + (imgIndex * 2), 3 + (imgIndex * 1), p, this.ctx, this.screenSize));
         this.createTimer = 0.0;
     }
 }

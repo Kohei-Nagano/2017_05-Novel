@@ -11,7 +11,7 @@ var player;
 var enemyManager;
 var ctx; // canvas2d コンテキスト格納用
 var run = false;
-var fps = 1000 / 30;
+var fps = 1000 / 60;
 var mouse = new Point();
 var back_img = new Image();
 var frameCount = 0;
@@ -74,6 +74,10 @@ Game.prototype.init = function () {
 		ctx.drawImage(back_img, 0, 0);
 		player.Draw();
         enemyManager.Draw();
+		ctx.font = "20px 'ＭＳ Ｐゴシック'";
+		ctx.strokeStyle = "white";
+		ctx.fillStyle = "white"; 
+		ctx.fillText("残り" + Math.floor(((GAME_LIMIT - frameCount) / 60)) + "秒", screenCanvas.width - 200, 100);
 
 		// 衝突判定
 		player.Collide(enemyManager.enemyArray);
@@ -87,18 +91,19 @@ Game.prototype.init = function () {
 		else if(frameCount > GAME_LIMIT){
 			run = false;
 	
-			if(MagicalShineCount > ShadowBallCount && 
-	   		   MagicalShineCount > CometPunchCount){
-				this.novel.setTrueScenario();
-			}
-			else if(ShadowBallCount > MagicalShineCount && 
-	   				ShadowBallCount > CometPunchCount){
+			if(ShadowBallCount >= MagicalShineCount && 
+	   				ShadowBallCount >= CometPunchCount){
 				this.novel.setBadScenario();
-			}
-			else if(CometPunchCount > ShadowBallCount && 
-	   				CometPunchCount > MagicalShineCount){
+			}			
+			else if(CometPunchCount >= ShadowBallCount && 
+	   				CometPunchCount >= MagicalShineCount){
 				this.novel.setNormalScenario();		
 			}
+			else if(MagicalShineCount >= ShadowBallCount && 
+	   		   MagicalShineCount >= CometPunchCount){
+				this.novel.setTrueScenario();
+			}
+
 		}
 
 		// 再帰呼び出しによりループを実現
@@ -133,7 +138,7 @@ Game.prototype.mouseDown = function (event) {
     case 1 : 
     break;
     case 2 : 
-		if(player.CalcLength(mouse) > 200){
+		if(player.CalcLength(mouse) > 100){
 			player.Shot(event, mouse, "shadow");
 			ShadowBallCount += 3;
 		}
