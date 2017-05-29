@@ -6,6 +6,7 @@
 
 // - bullet ----------------------------------------------------------------
 var Bullet = function(id, ctx, position, mouse) {
+    this.id = id;
     this.screenSize = new Point(position.x * 2, position.y * 2);
     this.BULLET_COLOR = 'rgba(0, 0, 255, 0.75)';
     this.velocity = new Point(mouse.x - position.x, mouse.y - position.y);
@@ -20,19 +21,16 @@ var Bullet = function(id, ctx, position, mouse) {
 
     if(id === "shine"){
         this.BULLET_COLOR = 'rgba(125, 255, 125, 0.75)';
-        this.size = 10;
-        this.speed = 5;
-        this.img.src = "image/game/punch.png";
+        this.speed = 20;
+        this.img.src = "image/game/shine.png";
     }
     else if(id === "shadow"){
         this.BULLET_COLOR = 'rgba(0, 0, 0, 0.75)';
-        this.size = 20;
-        this.speed = 10;
+        this.speed = 30;
         this.img.src = "image/game/shadow_ball.png";
     }
     else if(id === "comet"){
         this.BULLET_COLOR = 'rgba(255, 255, 125, 0.75)';
-        this.size = 30;
         this.speed = 15;
         this.deadLength = 50;
         this.img.src = "image/game/punch.png";
@@ -59,6 +57,8 @@ Bullet.prototype.IsCollide = function(position, radius){
 }
 
 Bullet.prototype.Collide = function () {
-    this.isDead = true;
+    if(this.id != "shadow"){
+        this.isDead = true;
+    }
 }
 

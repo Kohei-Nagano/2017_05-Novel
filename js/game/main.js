@@ -10,7 +10,7 @@ var screenCanvas, info;
 var player;
 var enemyManager;
 var ctx; // canvas2d コンテキスト格納用
-var run = true;
+var run = false;
 var fps = 1000 / 30;
 var mouse = new Point();
 var back_img = new Image();
@@ -128,18 +128,18 @@ Game.prototype.mouseDown = function (event) {
 	switch (event.button) {
     case 0 : 
 		player.Shot(event, mouse, "shine");
-		MagicalShineCount++;
+		MagicalShineCount += 1;
 	break;
     case 1 : 
     break;
     case 2 : 
 		if(player.CalcLength(mouse) > 200){
 			player.Shot(event, mouse, "shadow");
-			ShadowBallCount++;
+			ShadowBallCount += 3;
 		}
 		else{
 			player.Shot(event, mouse, "comet");
-			CometPunchCount++
+			CometPunchCount += 5;
 		}		
 	break;
 	}

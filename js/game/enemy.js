@@ -45,7 +45,7 @@ var ENEMY_ID = {
     HAUNTER : 1//?��S?��[?��X?��g
 };
 
-var ENEMY_CREATE_INTERVAL = 60.0;
+var ENEMY_CREATE_INTERVAL = 20.0;
 
 var EnemyManager = function(screenSize,ctx)
 {
@@ -113,7 +113,7 @@ EnemyManager.prototype.Create = function () {
 
         }
         //imgIndex * ?��ł�?��?��?��Ă�?��鐔�l?��?��?��S?��[?��X?��g?��?��+?��X?��e?��[?��^?��X
-        this.enemyArray.push(new Enemy(this.imgArray[imgIndex].src,10 + (imgIndex * 5), 5 + (imgIndex * 2), 2 + (imgIndex * 1), p, this.ctx, this.screenSize));
+        this.enemyArray.push(new Enemy(this.imgArray[imgIndex].src,10 + (imgIndex * 5), 5 + (imgIndex * 2), 10 + (imgIndex * 1), p, this.ctx, this.screenSize));
         this.createTimer = 0.0;
     }
 }
