@@ -3,73 +3,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <title>Novel_9</title>
-        <style type="text/css">
-            #mainScreen{
-                z-index: 1;
-                width: 800px;
-                height: 600px;
-                border: 1px solid gray;
+        <link rel="stylesheet" type="text/css" href="css/style.css">
 
-                margin: auto;
-                display: none;
-            }
-            #serif_bg{
-                background: url(image/selif_bg.png);
-                position: absolute;
-                z-index: 3;
-                top: 400px;
-                width: 800px;
-                height: 200px;
-            }
-            #serif{
-                position: relative;
-                z-index: 3;
-                top: 400px;
-                left: 100px;
-                width: 600px;
-                height: 200px;
-                //border: 1px solid blue;	
-                //background-color: rgba(255, 255, 255, 0.75);
-                padding: 10px;
-                user-select: none;
-                font-size: 18pt;
-
-            }
-            #chara{
-                position: relative;
-                z-index: 4;
-                top: 50px;
-                left: 500px;
-                width: 300px;
-                height: 330px;
-
-                display: none;
-                background: url(image/chara/pippi_01.png);
-            }
-            #item{
-                position: relative;
-                z-index: 4;
-                top: -400px;
-                left: 300px;
-                width: 200px;
-                height: 200px;
-                background: url(image/chara/stone1.png);              
-
-                display: none;
-            }
-            #screen{
-            	border: 1px solid gray;
-            }
-
-            #gameScreen{
-                width: 0px;
-                height: 0px;
-                margin: auto;
-
-                display: none;
-            }
-
-        </style>
         <script src="js/novel/novel.js"></script>
         <script src="js/game/common.js"></script>
         <script src="js/game/main.js"></script>
@@ -90,7 +25,7 @@
             <div id="chara"></div>
             <div id="item"></div>  
         </div>
-        <div id="gameScreen">
+        <div id="gameScreen" oncontextmenu="return false;">
             <canvas id="screen"></canvas>
             <p id="info"></p>
         </div>
@@ -98,7 +33,7 @@
         <audio id="clefable" src="sound/se/036.wav" auto></audio>
         <audio id="gastly" src="sound/se/092.wav" auto></audio>
         <audio id="haunter" src="sound/se/093.wav" auto></audio>
-        <audio id="genger" src="sound/se/094.wav" auto></audio>
+        <audio id="gengar" src="sound/se/094.wav" auto></audio>
         <audio id="mewtwo" src="sound/se/150.wav" auto></audio>
 
         <script src="js/jquery.min.js"></script>
@@ -106,21 +41,72 @@
             var novel = new Novel();
 
             $(document).ready(function(){
-                var gastlySE = new Audio("sound/se/092.wav");
-                $(gastlySE).on("canplaythrough", function(){
-                    var haunterSE = new Audio("sound/se/093.wav");
-                    $(haunterSE).on("canplaythrough", function(){
-                        alert("読み込みが完了しました！");
-                        $("#nowloading").hide();
-                        novel.init();
-                    });
-                });
 
+                var assets = [
+                      "image/chara/pippi_01.png"
+                    , "image/chara/gastly.png"
+                    , "image/chara/haunter.png"
+                    , "image/chara/gengar.png"
+                    , "image/chara/stone1.png"
+                    , "image/chara/stone2.png"
+                    , "image/selif_bg.png"
+                    , "image/bg/BG003.png"
+                    , "image/bg/BG004.png"
+                    , "image/bg/BG005.png"
+                    , "image/bg/BG006.jpg"
+                    , "image/bg/BG007.jpg"
+                ];
+
+
+                var callback = function(img){
+                    //裏側で画像一覧作成
+                    var result="";
+                    for(i=0; i<img.length; i++){
+                        result += "<li><img src=\""+ img[i].src +"\"></li>";
+                    }
+                
+                    var gastlySE = new Audio("sound/se/092.wav");
+                        $(gastlySE).on("canplaythrough", function(){
+                            var haunterSE = new Audio("sound/se/093.wav");
+                            $(haunterSE).on("canplaythrough", function(){
+                                $("#nowloading").hide();
+                                novel.init();
+                            });
+                        });
+
+                    
+                    //あらーと
+                    alert("読み込みが完了しました！");
+                };
+
+                //プリロード＆完了後の処理
+                IMGLoader(assets, callback);
 
                 $("#serif").on("click", function(){
                     novel.play();
                 });
             });
+
+            /**
+             * 画像プリローダ
+             */
+            function IMGLoader(list, callback){
+                var img   = [];
+                var count = 0;
+
+                for( i=0; i < list.length; i++){
+                    img[i] = new Image();
+                    img[i].src = list[i];
+            
+                    img[i].onload = function() {
+                        count++;
+                        if(count === list.length){
+                            callback(img);
+                        }
+                    };
+                }
+            }
+
         </script>
     </body>
 </html>

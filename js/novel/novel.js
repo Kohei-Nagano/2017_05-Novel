@@ -125,7 +125,7 @@ var DEAD_SCENARIO = [
     , {com:"S",  val:"………"}
     , {com:"S",  val:"……"}
     , {com:"S",  val:"…"}
-    , {com:"SE",  val:"#genger"}
+    , {com:"SE",  val:"#gengar"}
     , {com:"BG", val:"url(image/bg/BG007.jpg)"}
     , {com:"S",  val:"DEAD END<br>ピクシーとゲンガー１"}
     , {com:"E",  val:""}
