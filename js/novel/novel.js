@@ -98,7 +98,7 @@ var BAD_SCENARIO = [
     , {com:"S",  val:"……"}
     , {com:"PE",  val:"url(image/chara/gengar.png)"}
     , {com:"S",  val:"…"}
-    , {com:"SE",  val:"#genger"}
+    , {com:"SE",  val:"#gengar"}
     , {com:"ID",  val:"…"}
     , {com:"PD",  val:"…"}
     , {com:"S",  val:"BAD END<br>ピクシーとゲンガー２"}
