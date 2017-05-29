@@ -45,7 +45,7 @@ var ENEMY_ID = {
     HAUNTER : 1//?��S?��[?��X?��g
 };
 
-var ENEMY_CREATE_INTERVAL = 20.0;
+var ENEMY_CREATE_INTERVAL = 30.0;
 
 var EnemyManager = function(screenSize,ctx)
 {
