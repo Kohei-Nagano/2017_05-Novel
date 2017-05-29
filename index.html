@@ -19,6 +19,9 @@
 		        <img src="image/loading.gif">
             </div>
         </div>
+        <div id="titleScreen">
+            <div id="title"></div>
+        </div>
         <div id="mainScreen">
             <div id="serif_bg"></div>
             <div id="serif"></div>
@@ -30,6 +33,7 @@
             <p id="info"></p>
         </div>
 
+        <audio id="defBGM" src="sound/BGM/BGM01.mp3" auto></audio>
         <audio id="clefable" src="sound/se/036.wav" auto></audio>
         <audio id="gastly" src="sound/se/092.wav" auto></audio>
         <audio id="haunter" src="sound/se/093.wav" auto></audio>
@@ -54,6 +58,7 @@
                     , "image/chara/stone1.png"
                     , "image/chara/stone2.png"
                     , "image/selif_bg.png"
+                    , "image/title.png"
                     , "image/bg/BG003.png"
                     , "image/bg/BG004.png"
                     , "image/bg/BG005.png"
@@ -76,23 +81,27 @@
                         result += "<li><img src=\""+ img[i].src +"\"></li>";
                     }
                 
-                    var gastlySE = new Audio("sound/se/092.wav");
-                        $(gastlySE).on("canplaythrough", function(){
-                            var haunterSE = new Audio("sound/se/093.wav");
-                            $(haunterSE).on("canplaythrough", function(){
-                                $("#nowloading").hide();
-                                novel.init();
-                            });
+                    var defBGM = new Audio("sound/bgm/BGM01.mp3");
+                        $(defBGM).on("canplaythrough", function(){
+                            $("#nowloading").hide();
+                            $("#titleScreen").show();
+
+                             $("#defBGM").get(0).loop = true;
+                             $("#defBGM").get(0).play();
+                            //あらーと
+                            alert("読み込みが完了しました！");
                         });
 
                     
-                    //あらーと
-                    alert("読み込みが完了しました！");
                 };
 
                 //プリロード＆完了後の処理
                 IMGLoader(assets, callback);
 
+                $("#titleScreen").on("click", function(){
+                    $("#titleScreen").hide();
+                    novel.init();
+                });
                 $("#serif").on("click", function(){
                     novel.play();
                 });

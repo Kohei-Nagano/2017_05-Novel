@@ -194,6 +194,9 @@ Novel.prototype.setBadScenario = function(){
     this.scenario = SCENARIO.BAD;
     $("#serif").html("");
     this.enableMainScreen();
+    $("#defBGM").get(0).loop = true;
+    $("#defBGM").get(0).play();
+
 }
 // デッドシナリオセット
 Novel.prototype.setDeadScenario = function(){
@@ -201,6 +204,8 @@ Novel.prototype.setDeadScenario = function(){
     this.scenario = SCENARIO.DEAD;
     $("#serif").html("");
     this.enableMainScreen();
+    $("#defBGM").get(0).loop = true;
+    $("#defBGM").get(0).play();
 }
 // メインスクリーン表示
 Novel.prototype.enableMainScreen = function(){
@@ -255,6 +260,8 @@ Novel.prototype.mainScenario = function(){
         case "E":
             this.cursor = 0;
             this.disableMainScreen();
+            $("#defBGM").get(0).pause();
+            $("#defBGM").get(0).currentTime = 0;
             // ゲーム開始
             this.game.start();
             

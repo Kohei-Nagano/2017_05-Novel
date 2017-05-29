@@ -1,7 +1,28 @@
-@charset "UTF-8"
+@charset "UTF-8";
 
 #nowloding{
     margin: auto;                
+}
+
+#titleScreen{
+    width: 800px;
+    height: 600px;
+    border: 1px solid gray;
+    background: url(../image/bg/BG003.png);
+
+    margin: auto;
+    display: none;
+
+}
+
+#title{
+    position: relative;
+    width: 560px;
+    height: 110px;
+    
+    top: 200px;
+    left: 120px;
+    background: url(../image/title.png);
 }
 
 #mainScreen{
